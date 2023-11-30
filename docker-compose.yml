@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: admin
+        uid: 1000
+      context: ./
+      dockerfile: ./Dockerfile
+    image: tornado-api_app
+    container_name: tornado-app
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - tornadonetwork
+  tornado-api_db:
+    image: mysql:8.0
+    container_name: tornado-api_db
+    environment:
+      TZ: "Europe/Madrid"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: 'tornado'
+      MYSQL_DATABASE: tornado-api
+      MYSQL_USER: tornado
+      MYSQL_PASSWORD: tornado
+    ports:
+      - 3406:3306
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    networks:
+      - tornadonetwork
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: tornado-api_nginx
+    ports:
+      - 8082:80
+    volumes:
+      - ./:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - tornadonetwork
+networks:
+  tornadonetwork:
+    name: tornado-api
