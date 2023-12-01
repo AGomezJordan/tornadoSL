@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Chapter as ChapterResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -20,6 +21,7 @@ class Book extends JsonResource
             'title' => $this->title,
             'author' => $this->author,
             'published_at' => (new Carbon($this->published_at))->format('Y/m/d'),
+            'chapters' => ChapterResource::collection($this->whenLoaded('chapters')),
         ];
     }
 }
