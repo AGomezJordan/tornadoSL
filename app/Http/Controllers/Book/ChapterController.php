@@ -13,7 +13,7 @@ use App\Models\Chapter;
 class ChapterController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Displays a list of chapters associated with a specific book resource.
      */
     public function index(Book $book)
     {
@@ -22,7 +22,7 @@ class ChapterController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores a newly created chapter in the database related to a book.
      */
     public function store(StoreChapterRequest $request, Book $book)
     {
@@ -33,7 +33,7 @@ class ChapterController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays details of a specific chapter linked to a particular book.
      */
     public function show(Book $book, Chapter $chapter)
     {
@@ -42,7 +42,7 @@ class ChapterController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the details of a specific chapter related to a book in the database.
      */
     public function update(UpdateChapterRequest $request, Book $book, Chapter $chapter)
     {
@@ -52,7 +52,7 @@ class ChapterController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes a specific chapter associated with a book from the database.
      */
     public function destroy(Book $book, Chapter $chapter)
     {

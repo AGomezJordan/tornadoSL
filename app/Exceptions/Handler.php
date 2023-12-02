@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use ParseError;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
@@ -32,11 +34,13 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($request->expectsJson()) {
+        if (str_starts_with($request->server("REQUEST_URI"), '/api')) {
             if ($exception instanceof HttpException) {
                 $statusCode = $exception->getStatusCode();
-            } elseif ($exception instanceof QueryException) {
+            } elseif ($exception instanceof QueryException || $exception instanceof ParseError) {
                 $statusCode = 500;
+            } elseif ($exception instanceof ModelNotFoundException) {
+                $statusCode = 404;
             } else {
                 $statusCode = 400;
             }

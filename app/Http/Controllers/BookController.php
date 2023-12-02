@@ -10,7 +10,7 @@ use App\Models\Book;
 class BookController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retrieves and returns a collection of book resources.
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class BookController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Creates a new book and returns the resource of the created book.
      */
     public function store(StoreBookRequest $request)
     {
@@ -28,7 +28,7 @@ class BookController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retrieves and returns the resource of a specific book.
      */
     public function show(Book $book)
     {
@@ -36,7 +36,7 @@ class BookController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the book data and returns the resource of the updated book.
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
@@ -45,7 +45,7 @@ class BookController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified book and returns a response with no content.
      */
     public function destroy(Book $book)
     {
